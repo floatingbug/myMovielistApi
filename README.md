@@ -1,15 +1,13 @@
 # Contribution Setup
 
-# Contribution Setup
+# .env
 
-### .env
-
-##### url for mongodb 
+### url for mongodb 
 MONGODB_URL=`url`
 
-##### random secret
+### random secret
 JWT_SECRET=`secret`
 
-##### api_token
-**Sign in on https://www.themoviedb.org/ to get the token.**
+### api_token
+**Sign in on https://www.themoviedb.org/ to get the token.** 
 API_TOKEN=`token`
