@@ -11,6 +11,7 @@ function findMovies({store}){
 async function handleRequest(param){
 	const {req, res, store} = param;
 	let movies = [];
+	let genreList = [];
 	let metaData = {};
 
 
@@ -35,6 +36,23 @@ async function handleRequest(param){
 			totalPages: fetchedData.total_pages,
 			totalResults: fetchedData.total_results
 		}
+	}
+	catch(error){
+		return sendServerError({res, error});
+	}
+
+	// get genre list
+	try{
+		const url = 'https://api.themoviedb.org/3/genre/movie/list?language=en';
+		const options = {
+		  method: 'GET',
+		  headers: {
+			accept: 'application/json',
+			Authorization: `Bearer ${process.env.API_TOKEN}`}
+		};
+
+		const response = await fetch(url, options);
+		genreList = await response.json();
 	}
 	catch(error){
 		return sendServerError({res, error});
@@ -68,7 +86,7 @@ async function handleRequest(param){
 		return sendServerError({res, error});
 	}
 
-	res.status(200).json({movies, metaData});
+	res.status(200).json({movies, genreList, metaData});
 }
 
 
