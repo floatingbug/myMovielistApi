@@ -14,6 +14,7 @@ const {getUser} = require("./routes/getUser.js");
 const {getMovielists} = require("./routes/getMovielists");
 const {addToMovielist} = require("./routes/addToMovielist");
 const {deleteMovies} = require("./routes/deleteMovies");
+const {deleteMovielist} = require("./routes/deleteMovielist");
 
 function createApi({store}){
 	api.use(cors({
@@ -34,6 +35,7 @@ function createApi({store}){
 	api.post("/add-to-movielist", validateUser({jwt}), addToMovielist({store}));
 
 	api.delete("/delete-movies", validateUser({jwt}), deleteMovies({store}));
+	api.delete("/delete-movielist", validateUser({jwt}), deleteMovielist({store}));
 
 	return api;
 }

@@ -12,6 +12,7 @@ const store = {
 	getMovielists,
 	addToMovielist,
 	deleteMovies,
+	deleteMovielist,
 };
 
 
@@ -104,6 +105,19 @@ async function deleteMovies(param){
 		const result = await collMovielists.updateMany(filter, update);
 
 		return result;
+	}
+	catch(error){
+		throw error;
+	}
+}
+
+
+async function deleteMovielist(filter){
+	try{
+		const collMovielists = this.db.collection("movielists");
+		const result = await collMovielists.deleteOne(filter);
+
+		return result
 	}
 	catch(error){
 		throw error;
