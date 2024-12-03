@@ -5,4 +5,4 @@ const api = createApi({store});
 const http = require("http");
 const server = http.createServer(api);
 
-server.listen(process.env.PORT);
+server.listen(process.env.PORT, "127.0.0.1");
