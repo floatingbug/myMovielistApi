@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const {signUp} = require("./routes/signUp");
 const {signUpValidation} = require("./validation/signUpValidation");
 const {signIn} = require("./routes/signIn");
-const {findMovies} = require("./routes/findMovies");
+const {discoverMovies} = require("./routes/discoverMovies");
 const {addMovieList} = require("./routes/addMovieList");
 const {validateUser} = require("./validation/validateUser");
 const {validateMovieList} = require("./validation/validateMovieList");
@@ -15,6 +15,7 @@ const {getMovielists} = require("./routes/getMovielists");
 const {addToMovielist} = require("./routes/addToMovielist");
 const {deleteMovies} = require("./routes/deleteMovies");
 const {deleteMovielist} = require("./routes/deleteMovielist");
+const {searchMovies} = require("./routes/searchMovies");
 
 function createApi({store}){
 	api.use(cors({
@@ -25,7 +26,8 @@ function createApi({store}){
 
 
 
-	api.get("/find-movies", findMovies({store}));
+	api.get("/discover-movies", discoverMovies({store}));
+	api.get("/search-movies", searchMovies({store}));
 	api.get("/get-user", validateUser({jwt}), getUser({store}));
 	api.get("/get-movielists", validateUser({jwt}), getMovielists({store}));
 

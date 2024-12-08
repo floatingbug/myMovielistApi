@@ -10,6 +10,8 @@ function addToMovielist({store}){
 async function handleRequest(param){
 	const {req, res, store} = param;
 
+	console.log(req.body.movie);
+
 	//check if movie is in list allready
 	try{
 		const query = {

@@ -1,7 +1,7 @@
 const {sendServerError} = require("../utils/sendServerError");
 const url = require("url");
 
-function findMovies({store}){
+function discoverMovies({store}){
 	return (req, res) => {
 		handleRequest({req, res, store});
 	};
@@ -23,12 +23,13 @@ async function handleRequest(param){
 		  method: 'GET',
 		  headers: {
 			accept: 'application/json',
-			Authorization: `Bearer ${process.env.API_TOKEN}`
+			Authorization: process.env.API_TOKEN
 		  }
 		};
 
 		const response = await fetch(apiUrl, options);
 		const fetchedData = await response.json();
+
 
 		movies = fetchedData.results;
 		metaData = {
@@ -41,14 +42,15 @@ async function handleRequest(param){
 		return sendServerError({res, error});
 	}
 
-	// get genre list
+	// get genre list for sending genreIds to client so client can filter by genre at next request
 	try{
 		const url = 'https://api.themoviedb.org/3/genre/movie/list?language=en';
 		const options = {
 		  method: 'GET',
 		  headers: {
 			accept: 'application/json',
-			Authorization: `Bearer ${process.env.API_TOKEN}`}
+			Authorization: process.env.API_TOKEN
+		  }
 		};
 
 		const response = await fetch(url, options);
@@ -90,4 +92,4 @@ async function handleRequest(param){
 }
 
 
-module.exports = {findMovies};
+module.exports = {discoverMovies};
