@@ -14,6 +14,7 @@ async function handleRequest(param){
 	try{
 		const document = req.body;
 		document.ownerId = req.user.userId;
+		document.movielistOwner = req.user.name;
 		document.movielistId = randomUUID();
 		document.movies = [];
 

@@ -13,6 +13,7 @@ const store = {
 	addToMovielist,
 	deleteMovies,
 	deleteMovielist,
+	getPublicMovielists,
 };
 
 
@@ -76,6 +77,20 @@ async function getMovielists(query){
 		const result = await collMovielists.find(query);
 		const movielists = await result.toArray();
 		
+		return movielists;
+	}
+	catch(error){
+		throw error;
+	}
+}
+
+
+async function getPublicMovielists(query){
+	try{
+		const collMovielists = this.db.collection("movielists");
+		const result = await collMovielists.find(query);
+		const movielists = await result.toArray();
+
 		return movielists;
 	}
 	catch(error){

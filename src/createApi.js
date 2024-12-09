@@ -16,6 +16,8 @@ const {addToMovielist} = require("./routes/addToMovielist");
 const {deleteMovies} = require("./routes/deleteMovies");
 const {deleteMovielist} = require("./routes/deleteMovielist");
 const {searchMovies} = require("./routes/searchMovies");
+const {getPublicMovielists} = require("./routes/getPublicMovielists");
+
 
 function createApi({store}){
 	api.use(cors({
@@ -30,6 +32,7 @@ function createApi({store}){
 	api.get("/search-movies", searchMovies({store}));
 	api.get("/get-user", validateUser({jwt}), getUser({store}));
 	api.get("/get-movielists", validateUser({jwt}), getMovielists({store}));
+	api.get("/get-public-movielists", getPublicMovielists({store}));
 
 	api.post("/sign-up", signUpValidation, signUp({store}));
 	api.post("/sign-in", signIn({jwt, store}));
