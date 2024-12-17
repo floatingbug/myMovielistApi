@@ -63,7 +63,7 @@ async function handleRequest(param){
 	// add customized data to the movielist elements
 	try{
 		const movieIds = movies.map(movie => {
-			return {id: movie.id};
+			return {movieId: movie.id};
 		});
 		const query = {
 			$or: movieIds
@@ -71,17 +71,15 @@ async function handleRequest(param){
 
 		const customizedData = await store.getCustomizedData(query);
 
-		if(customizedData.length > 0){
-			const customizedDataMap = customizedDataMap.reduce((acc, data) => {
-				acc[data.id] = data;
-				return acc;
-			}, {});
-
-			movies.forEach(movie => {
-				const data = customizedDataMap[movie.id];
-
-				if(data) movie.customizedData = data;
-			});
+		for(let i = 0; i < movies.length; i++){
+			for(let j = 0; j < customizedData.length; j++){
+				if(movies[i].id === customizedData[j].movieId){
+					if(!movies[i].customizedData){
+						movies[i].customizedData = [];
+					}
+					movies[i].customizedData.push(customizedData[j]);
+				}
+			}
 		}
 	}
 	catch(error){

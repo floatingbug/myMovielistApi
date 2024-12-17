@@ -17,6 +17,7 @@ const {deleteMovies} = require("./routes/deleteMovies");
 const {deleteMovielist} = require("./routes/deleteMovielist");
 const {searchMovies} = require("./routes/searchMovies");
 const {getPublicMovielists} = require("./routes/getPublicMovielists");
+const {addCustomizedData} = require("./routes/addCustomizedData");
 
 
 function createApi({store}){
@@ -38,6 +39,7 @@ function createApi({store}){
 	api.post("/sign-in", signIn({jwt, store}));
 	api.post("/add-movie-list", validateUser({jwt}), validateMovieList, addMovieList({store}));
 	api.post("/add-to-movielist", validateUser({jwt}), addToMovielist({store}));
+	api.post("/add-customized-data", validateUser({jwt}), addCustomizedData({store}));
 
 	api.delete("/delete-movies", validateUser({jwt}), deleteMovies({store}));
 	api.delete("/delete-movielist", validateUser({jwt}), deleteMovielist({store}));

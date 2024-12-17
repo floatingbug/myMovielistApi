@@ -8,6 +8,7 @@ const store = {
 	addUser,
 	getUser,
 	getCustomizedData,
+	addCustomizedData,
 	addMovieList,
 	getMovielists,
 	addToMovielist,
@@ -50,6 +51,19 @@ async function getCustomizedData(query){
 		const customizedData = await result.toArray();
 
 		return customizedData;
+	}
+	catch(error){
+		throw error;
+	}
+}
+
+
+async function addCustomizedData(document){
+	try{
+		const collCustomizedData = this.db.collection("customizedData");
+		const result = await collCustomizedData.insertOne(document);
+
+		return result;
 	}
 	catch(error){
 		throw error;

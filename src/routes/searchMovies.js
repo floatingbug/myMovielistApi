@@ -79,7 +79,31 @@ async function handleRequest(param){
 		return sendServerError({res, error});
 	}
 
-	console.log(totalResults);
+	// add customized data to the movielist elements
+	try{
+		const movieIds = movies.map(movie => {
+			return {movieId: movie.id};
+		});
+		const query = {
+			$or: movieIds
+		}
+
+		const customizedData = await store.getCustomizedData(query);
+
+		for(let i = 0; i < movies.length; i++){
+			for(let j = 0; j < customizedData.length; j++){
+				if(movies[i].id === customizedData[j].movieId){
+					if(!movies[i].customizedData){
+						movies[i].customizedData = [];
+					}
+					movies[i].customizedData.push(customizedData[j]);
+				}
+			}
+		}
+	}
+	catch(error){
+		return sendServerError({res, error});
+	}
 
 	const data = {
 		totalResults,
