@@ -10,6 +10,7 @@ function signUp({store}){
 
 async function handleRequest(params){
 	const {req, res, store} = params;
+	const userId = randomUUID();
 
 	//check if name or email is already in db
 	try{
@@ -43,12 +44,25 @@ async function handleRequest(params){
 	//add user to db
 	try{
 		const document = req.body;
-		document.userId = randomUUID();
+		document.userId = userId;
 		document.isMailValidated = false;
 		document.validationNumber = randomUUID();
 
 		const result = await store.addUser(document);
 		if(!result) return sendServerError({res});
+	}
+	catch(error){
+		return sendServerError({res, error});
+	}
+
+	//add watchlist
+	try{
+		const document = {
+			ownerId: userId,
+			watchlistId: randomUUID()
+		};
+
+		const result = await store.insertIntoCollection({document, collectionName: "watchlists"});
 	}
 	catch(error){
 		return sendServerError({res, error});

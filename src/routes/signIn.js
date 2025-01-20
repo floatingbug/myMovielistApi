@@ -44,7 +44,7 @@ async function handleRequest(param){
 		}
 	}
 	catch(error){
-		return sendServerError({res, err});
+		return sendServerError({res, error});
 	}
 
 	//create and send jwt

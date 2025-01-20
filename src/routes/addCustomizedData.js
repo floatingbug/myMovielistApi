@@ -1,4 +1,5 @@
 const {sendServerError} = require("../utils/sendServerError");
+const {getMovienameById} = require("../api/apiCalls/getMovienameById");
 
 function addCustomizedData({store}){
 	return (req, res) => {
@@ -16,6 +17,15 @@ async function handleRequest(param){
 		movieId,
 		dataType,
 	};
+
+	//get moviename
+	try{
+		const moviename = await getMovienameById(movieId);
+		document.movieName = moviename;
+	}
+	catch(error){
+		return sendServerError({res, error});
+	}
 
 	//determine data and msg
 	let msg = "";

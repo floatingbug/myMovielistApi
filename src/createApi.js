@@ -18,6 +18,9 @@ const {deleteMovielist} = require("./routes/deleteMovielist");
 const {searchMovies} = require("./routes/searchMovies");
 const {getPublicMovielists} = require("./routes/getPublicMovielists");
 const {addCustomizedData} = require("./routes/addCustomizedData");
+const {addToWatchlist} = require("./routes/addToWatchlist");
+const {getWatchlist} = require("./routes/getWatchlist");
+const {getRatings} = require("./routes/getRatings");
 
 
 function createApi({store}){
@@ -34,12 +37,15 @@ function createApi({store}){
 	api.get("/get-user", validateUser({jwt}), getUser({store}));
 	api.get("/get-movielists", validateUser({jwt}), getMovielists({store}));
 	api.get("/get-public-movielists", getPublicMovielists({store}));
+	api.get("/get-watchlist", validateUser({jwt}), getWatchlist({store}));
+	api.get("/get-ratings", validateUser({jwt}), getRatings({store}));
 
 	api.post("/sign-up", signUpValidation, signUp({store}));
 	api.post("/sign-in", signIn({jwt, store}));
 	api.post("/add-movie-list", validateUser({jwt}), validateMovieList, addMovieList({store}));
 	api.post("/add-to-movielist", validateUser({jwt}), addToMovielist({store}));
 	api.post("/add-customized-data", validateUser({jwt}), addCustomizedData({store}));
+	api.post("/add-to-watchlist", validateUser({jwt}), addToWatchlist({store}));
 
 	api.delete("/delete-movies", validateUser({jwt}), deleteMovies({store}));
 	api.delete("/delete-movielist", validateUser({jwt}), deleteMovielist({store}));

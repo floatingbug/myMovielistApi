@@ -15,6 +15,9 @@ const store = {
 	deleteMovies,
 	deleteMovielist,
 	getPublicMovielists,
+	insertIntoCollection,
+	insertIntoDocument,
+	getDocuments,
 };
 
 
@@ -147,6 +150,46 @@ async function deleteMovielist(filter){
 		const result = await collMovielists.deleteOne(filter);
 
 		return result
+	}
+	catch(error){
+		throw error;
+	}
+}
+
+
+async function getDocuments({query, collectionName}){
+	try{
+		const coll = this.db.collection(collectionName);
+		const result = coll.find(query);
+		const documents = result.toArray();
+
+		return documents;
+	}
+	catch(error){
+		throw error;
+	}
+}
+
+
+async function insertIntoCollection({document, collectionName}){
+	try{
+		const coll = this.db.collection(collectionName);
+		const result = coll.insertOne(document);
+
+		return result;
+	}
+	catch(error){
+		throw error;
+	}
+}
+
+
+async function insertIntoDocument({filter, update, collectionName}){
+	try{
+		const coll = this.db.collection(collectionName);
+		const result = await coll.updateOne(filter, update);
+
+		return result;
 	}
 	catch(error){
 		throw error;
