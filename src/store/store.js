@@ -160,8 +160,8 @@ async function deleteMovielist(filter){
 async function getDocuments({query, collectionName}){
 	try{
 		const coll = this.db.collection(collectionName);
-		const result = coll.find(query);
-		const documents = result.toArray();
+		const result = await coll.find(query);
+		const documents = await result.toArray();
 
 		return documents;
 	}

@@ -21,6 +21,7 @@ const {addCustomizedData} = require("./routes/addCustomizedData");
 const {addToWatchlist} = require("./routes/addToWatchlist");
 const {getWatchlist} = require("./routes/getWatchlist");
 const {getRatings} = require("./routes/getRatings");
+const {getMovie} = require("./routes/getMovie");
 
 
 function createApi({store}){
@@ -39,6 +40,7 @@ function createApi({store}){
 	api.get("/get-public-movielists", getPublicMovielists({store}));
 	api.get("/get-watchlist", validateUser({jwt}), getWatchlist({store}));
 	api.get("/get-ratings", validateUser({jwt}), getRatings({store}));
+	api.get("/get-movie", getMovie({store}));
 
 	api.post("/sign-up", signUpValidation, signUp({store}));
 	api.post("/sign-in", signIn({jwt, store}));
