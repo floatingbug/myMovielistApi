@@ -8,3 +8,6 @@ async function getRatingById({query}){
 		throw error;
 	}
 }
+
+
+module.exports = getRatingById;

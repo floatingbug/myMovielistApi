@@ -1,3 +1,6 @@
+const {getDB} = require("@config/db");
+
+
 async function getRatings({query}){
 	try{
 		const db = await getDB();
@@ -9,3 +12,5 @@ async function getRatings({query}){
 		throw error;
 	}
 }
+
+module.exports = getRatings;

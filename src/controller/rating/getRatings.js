@@ -1,11 +1,21 @@
-async function getRatings({query}){
+const ratingService = require("@services/domain/rating");
+const response = require("@utils/response.js");
+
+
+async function getRatings(req, res, next){
+	const movieId = req.query.movieId;
+
 	try{
-		const db = await getDB();
-		const cursor = db.collection("ratings").find(query);
-		const result = await cursor.toArray();
-		return result;
+		const result = await ratingService.getRatings({
+			movieId,
+		});
+
+		response(res, result);
 	}
 	catch(error){
-		throw error;
+		next(error);
 	}
 }
+
+
+module.exports = getRatings;

@@ -8,6 +8,7 @@
     "mongodb": "^6.16.0"
   },
   "_moduleAliases": {
+	  "@config": "src/config",
 	  "@controller": "src/controller",
 	  "@services": "src/services",
 	  "@models": "src/models",
