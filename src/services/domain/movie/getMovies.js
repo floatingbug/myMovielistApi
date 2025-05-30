@@ -1,8 +1,12 @@
 const tmdb = require("@tmdb");
 const ratingModel = require("@models/rating");
+const createQuery = require("./getMovies/createQuery");
+const watchlistModel = require("@models/watchlist");
 
 
-async function getMovies({query}){
+async function getMovies({queries, user}){
+	const query = createQuery({queries});
+
 	try{
 		const fetchedMovies = await tmdb.fetchMovies({query});
 
@@ -15,11 +19,32 @@ async function getMovies({query}){
 		}
 		const ratings = await ratingModel.getRatings({query: ratingQuery});
 
-		// add the additional information to movies
+		// add ratings to movies
 		ratings?.forEach(rating => {
 			fetchedMovies.results?.forEach(movie => {
-				if(rating.movieId === movie.movieId){
-					movie.rating = rating;
+				if(rating.movieId === movie.id){
+					if(!movie.ratings) movie.ratings = [];
+					movie.ratings.push(rating);
+				}
+			});
+		});
+
+		// get watchlist info
+		const watchlistQuery = {
+			userId: user.userId,
+		};
+		const watchlist = await watchlistModel.getWatchlist({query: watchlistQuery});
+		fetchedMovies.results?.forEach(movie => {
+			movie.isInWatchlist = watchlist && watchlist.movies.includes(movie.id) ? true : false;
+		});
+
+		// get additional information from tmdb
+		const moviesInformations = await tmdb.getMoviesInformations({movieIds});
+
+		moviesInformations?.forEach(info => {
+			fetchedMovies.results?.forEach(movie => {
+				if(info.id === movie.id){
+					movie.fsk = info.fsk;
 				}
 			});
 		});

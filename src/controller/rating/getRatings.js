@@ -3,7 +3,8 @@ const response = require("@utils/response.js");
 
 
 async function getRatings(req, res, next){
-	const movieId = req.query.movieId;
+	const movieId = req.query.movieid;
+
 
 	try{
 		const result = await ratingService.getRatings({

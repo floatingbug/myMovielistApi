@@ -1,4 +1,4 @@
-const {getDB} = require("../../config/db");
+const {getDB} = require("@config/db");
 
 
 async function createRating({doc}){
@@ -13,4 +13,4 @@ async function createRating({doc}){
 }
 
 
-module.export = createRating;
+module.exports = createRating;

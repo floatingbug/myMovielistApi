@@ -6,6 +6,7 @@ async function getMovies(req, res, next){
 	try{
 		const result = await movieService.getMovies({
 			queries: req.query,
+			user: req.user,
 		});
 
 		response(res, result);

@@ -5,7 +5,8 @@ const movieService = require("@services/domain/movie");
 async function getMovieById(req, res, next){
 	try{
 		const result = await movieService.getMovieById({
-			movieId: req.query.movieId,
+			movieId: Number(req.query.movieId),
+			user: req.user,
 		});
 
 		response(res, result);

@@ -1,8 +1,9 @@
 const ratingModel = require("@models/rating");
+const watchlistModel = require("@models/watchlist");
 const tmdb = require("@tmdb");
 
 
-async function getMovieById({movieId}){
+async function getMovieById({movieId, user}){
 	try{
 		// get movie
 		const movie = await tmdb.fetchMovieById({movieId});
@@ -13,7 +14,17 @@ async function getMovieById({movieId}){
 	
 		// get credits
 		movie.credits = await tmdb.fetchCredits({movieId});
-		
+
+		// add watchlist info
+		const watchlistQuery = {
+			userId: user.userId,
+			movies: {
+				$in: [movieId],
+			}
+		};
+		const watchlist = await watchlistModel.getWatchlist({query: watchlistQuery});
+		movie.isInWatchlist = watchlist ? true : false;
+
 		return {
 			success: true,
 			code: 200,

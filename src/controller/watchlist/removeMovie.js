@@ -2,11 +2,11 @@ const watchlistService = require("@services/domain/watchlist");
 const response = require("@utils/response");
 
 
-async function addMovie(req, res, next){
+async function removeMovie(req, res, next){
 	try{
-		const result = await watchlistService.addMovie({
-			userId: req.user.userId,
+		const result = await watchlistService.removeMovie({
 			movieId: req.body.movieId,
+			userId: req.user.userId,
 		});
 
 		response(res, result);
@@ -17,4 +17,4 @@ async function addMovie(req, res, next){
 }
 
 
-module.exports = addMovie;
+module.exports = removeMovie;

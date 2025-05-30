@@ -4,7 +4,7 @@ const ratingModel = require("@models/rating");
 async function getRatings({movieId}){
 	try{
 		const query = {
-			movieId,
+			movieId: Number(movieId),
 		};
 
 		const result = await ratingModel.getRatings({query});

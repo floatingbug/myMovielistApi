@@ -7,12 +7,14 @@ async function createRating(req, res, next){
 	const date = new Date(timestamp);
 	const dateString = date.toLocaleString();
 
+
 	try{
 		const userId = req.user.userId;
+		const rater = req.user.name;
 		const movieId = req.body.movieId;
-		const newRating = req.body.newRating;
+		const newRating = req.body.rating;
 
-		const result = await ratingService.createRating({newRating, userId, movieId});
+		const result = await ratingService.createRating({newRating, userId, movieId, rater, dateString});
 
 		response(res, result);
 	}

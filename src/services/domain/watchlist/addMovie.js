@@ -57,7 +57,8 @@ async function addMovie({userId, movieId}){
 	catch(error){
 		throw error;
 	}
-	
+
+	// add movie to watchlist
 	try{
 		const filter = {
 			userId,
@@ -81,3 +82,6 @@ async function addMovie({userId, movieId}){
 		throw error;
 	}
 }
+
+
+module.exports = addMovie;

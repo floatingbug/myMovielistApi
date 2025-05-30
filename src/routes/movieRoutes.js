@@ -6,7 +6,8 @@ const authUser = require("../middleware/authUser");
 
 router.get("/latest-movies", movieController.getLatestMovies);
 router.get("/", authUser, movieController.getMovies);
-router.get("/get-by-id", movieController.getMovieById);
+router.get("/get-by-id", authUser, movieController.getMovieById);
+router.get("/get-genre-list", movieController.getGenreList);
 
 
 module.exports = router;
