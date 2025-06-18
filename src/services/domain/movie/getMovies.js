@@ -10,6 +10,16 @@ async function getMovies({queries, user}){
 	try{
 		const fetchedMovies = await tmdb.fetchMovies({query});
 
+		console.log(fetchedMovies);
+
+		if(!fetchedMovies){
+			return {
+				success: false,
+				code: 400,
+				errors: ["No movies has been found."],
+			};
+		}
+
 		// get additional informations from db
 		const movieIds = fetchedMovies.results.map(movie => movie.id);
 		
@@ -20,8 +30,9 @@ async function getMovies({queries, user}){
 		const ratings = await ratingModel.getRatings({query: ratingQuery});
 
 		// add ratings to movies
-		ratings?.forEach(rating => {
-			fetchedMovies.results?.forEach(movie => {
+		fetchedMovies.results?.forEach(movie => {
+			movie.ratings = [];
+			ratings?.forEach(rating => {
 				if(rating.movieId === movie.id){
 					if(!movie.ratings) movie.ratings = [];
 					movie.ratings.push(rating);

@@ -14,3 +14,6 @@ async function getMovielists({query}){
 		throw error;
 	}
 }
+
+
+module.exports = getMovielists;

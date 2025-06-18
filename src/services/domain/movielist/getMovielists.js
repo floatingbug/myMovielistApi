@@ -1,17 +1,28 @@
-const movielistModel = require("../../../models/movielist");
+const movielistModel = require("@models/movielist");
 
 
 async function getMovielists({userId}){
 	try{
 		const query = {
-			userId,
+			$or: [
+				{isPublic: true},
+				{userId},
+			],
 		};
 
 		const result = await movielistModel.getMovielists({query});
 
-		response(res, result);
+		return {
+			success: true,
+			code: 200,
+			message: "Sent movielists.",
+			data: result,
+		};
 	}
 	catch(error){
-		next(error);
+		throw error;
 	}
 }
+
+
+module.exports = getMovielists;

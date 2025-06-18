@@ -5,7 +5,7 @@ const response = require("../../utils/response");
 async function addMovie(req, res, next){
 	try{
 		const result = await movielistService.addMovie({
-			userId: req.body.userId,
+			userId: req.user.userId,
 			movielistId: req.body.movielistId,
 			movieId: req.body.movieId,
 		});

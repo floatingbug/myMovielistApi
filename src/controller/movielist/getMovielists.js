@@ -1,4 +1,5 @@
 const movielistService = require("../../services/domain/movielist");
+const response = require("@utils/response");
 
 
 async function getMovielists(req, res, next){

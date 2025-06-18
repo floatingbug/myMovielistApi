@@ -1,13 +1,17 @@
-const movielistModel = require("../../../models/movielist");
+const movielistModel = require("@models/movielist");
 const {randomUUID} = require("crypto");
 
 
-async function createMovielist({userId, movieId}){
+async function createMovielist({user, movielistname, movieId}){
 	try{
 		const doc = {
-			movielistId: randomUUID,
-			userId,
+			timestamp: Date.now(),
+			movielistId: randomUUID(),
+			movielistname,
+			userId: user.userId,
+			creatorName: user.name,
 			movies: [movieId],
+			isPublic: true,
 		};
 
 		const result = await movielistModel.createMovielist({doc});

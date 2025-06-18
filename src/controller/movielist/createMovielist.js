@@ -3,10 +3,11 @@ const response = require("../../utils/response");
 
 
 async function createMovielist(req, res, next){
+	console.log("test");
 	try{
 		const result = await movielistService.createMovielist({
-			userId: req.user.userId,
-			movielistName: req.body.movielistName,
+			user: req.user,
+			movielistname: req.body.movielistname,
 			movieId: req.body.movieId,
 		});
 

@@ -1,4 +1,5 @@
 const watchlistModel = require("../../../models/watchlist");
+const {randomUUID} = require("crypto");
 
 
 async function addMovie({userId, movieId}){

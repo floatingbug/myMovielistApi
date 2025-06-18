@@ -1,10 +1,9 @@
-const {getDB} = require("../../config/db");
+const {getDB} = require("@config/db");
 
 
 async function addMovieToMovielist({filter, update}){
 	try{
 		const db = await getDB();
-
 		const result = await db.collection("movielists").updateOne(filter, update);
 
 		return result
@@ -13,3 +12,6 @@ async function addMovieToMovielist({filter, update}){
 		throw error;
 	}
 }
+
+
+module.exports = addMovieToMovielist;
